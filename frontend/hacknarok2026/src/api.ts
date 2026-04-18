@@ -26,15 +26,15 @@ const service = {
   },
   getProjectRating: (projectRatingId: number) => {
     const headers = getHeaders();
-    return api.get<ProjectRating>(`/projectRatings/${projectRatingId}`, { headers });
+    return api.get<ProjectRating>(`/ratings/${projectRatingId}`, { headers });
   },
   getProjectRatings: () => {
     const headers = getHeaders();
-    return api.get<ProjectRating[]>("/projectRatings", { headers });
+    return api.get<ProjectRating[]>("/ratings", { headers });
   },
   createProjectRating: (projectRating:ProjectRating) =>{
     const headers = getHeaders()
-    return api.post("/projectRatings",projectRating,{headers})
+    return api.post("/ratings",projectRating,{headers})
   },
   login:(email:string,password:string) =>{
     const headers = getHeaders()
