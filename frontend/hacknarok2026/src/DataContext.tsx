@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import type { Project, ProjectRating } from "./types";
+import { type User, type Project, type ProjectRating } from "./types";
 type DataContextType = {
   projects: Project[] | undefined;
   setProjects: (projects: Project[] | undefined) => void;
@@ -9,6 +9,9 @@ type DataContextType = {
 
   currentProject: Project | undefined;
   setCurrentProject: (project: Project | undefined) => void;
+
+  loggedInUser: User | undefined;
+  setLoggedInUser: (User: User | undefined) => void;
 };
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -17,7 +20,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [projects, setProjects] = useState<Project[]>();
   const [projectRatings, setProjectRatings] = useState<ProjectRating[]>();
   const [currentProject, setCurrentProject] = useState<Project>();
-
+  const [loggedInUser, setLoggedInUser] = useState<User>();
   useEffect(() => {
     setProjects([
       {
@@ -33,8 +36,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           "very good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -44,8 +47,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -55,8 +58,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -66,8 +69,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -77,8 +80,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -88,8 +91,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -99,8 +102,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -110,8 +113,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -121,8 +124,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -132,8 +135,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -143,8 +146,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -154,8 +157,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -165,8 +168,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
+        id: 2,
+        name: "Tomeggster",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -176,85 +179,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         description: "very good project",
       },
       {
-        id: 1,
-        name: "Tomegg",
-        date_added: "Today",
-        owner: "me",
-        photo_url:
-          "https://media.licdn.com/dms/image/v2/C560BAQF3v90K5XSbfQ/company-logo_200_200/company-logo_200_200/0/1630623981742?e=2147483647&v=beta&t=EXiq2PJEToPAh96erH4RxaV9DH0FoYpxIHL6lwjLYoE",
-        repo_url: "git",
-        tags: "pyton, java/script",
-        description: "very good project",
-      },
-      {
-        id: 1,
-        name: "Tomegg",
-        date_added: "Today",
-        owner: "me",
-        photo_url:
-          "https://media.licdn.com/dms/image/v2/C560BAQF3v90K5XSbfQ/company-logo_200_200/company-logo_200_200/0/1630623981742?e=2147483647&v=beta&t=EXiq2PJEToPAh96erH4RxaV9DH0FoYpxIHL6lwjLYoE",
-        repo_url: "git",
-        tags: "pyton, java/script",
-        description: "very good project",
-      },
-      {
-        id: 1,
-        name: "Tomegg",
-        date_added: "Today",
-        owner: "me",
-        photo_url:
-          "https://media.licdn.com/dms/image/v2/C560BAQF3v90K5XSbfQ/company-logo_200_200/company-logo_200_200/0/1630623981742?e=2147483647&v=beta&t=EXiq2PJEToPAh96erH4RxaV9DH0FoYpxIHL6lwjLYoE",
-        repo_url: "git",
-        tags: "pyton, java/script",
-        description: "very good project",
-      },
-      {
-        id: 1,
-        name: "Tomegg",
-        date_added: "Today",
-        owner: "me",
-        photo_url:
-          "https://media.licdn.com/dms/image/v2/C560BAQF3v90K5XSbfQ/company-logo_200_200/company-logo_200_200/0/1630623981742?e=2147483647&v=beta&t=EXiq2PJEToPAh96erH4RxaV9DH0FoYpxIHL6lwjLYoE",
-        repo_url: "git",
-        tags: "pyton, java/script",
-        description: "very good project",
-      },
-      {
-        id: 1,
-        name: "Tomegg",
-        date_added: "Today",
-        owner: "me",
-        photo_url:
-          "https://media.licdn.com/dms/image/v2/C560BAQF3v90K5XSbfQ/company-logo_200_200/company-logo_200_200/0/1630623981742?e=2147483647&v=beta&t=EXiq2PJEToPAh96erH4RxaV9DH0FoYpxIHL6lwjLYoE",
-        repo_url: "git",
-        tags: "pyton, java/script",
-        description: "very good project",
-      },
-      {
-        id: 1,
-        name: "Tomegg",
-        date_added: "Today",
-        owner: "me",
-        photo_url:
-          "https://media.licdn.com/dms/image/v2/C560BAQF3v90K5XSbfQ/company-logo_200_200/company-logo_200_200/0/1630623981742?e=2147483647&v=beta&t=EXiq2PJEToPAh96erH4RxaV9DH0FoYpxIHL6lwjLYoE",
-        repo_url: "git",
-        tags: "pyton, java/script",
-        description: "very good project",
-      },
-      {
-        id: 1,
-        name: "Tomegg",
-        date_added: "Today",
-        owner: "me",
-        photo_url:
-          "https://media.licdn.com/dms/image/v2/C560BAQF3v90K5XSbfQ/company-logo_200_200/company-logo_200_200/0/1630623981742?e=2147483647&v=beta&t=EXiq2PJEToPAh96erH4RxaV9DH0FoYpxIHL6lwjLYoE",
-        repo_url: "git",
-        tags: "pyton, java/script",
-        description: "very good project",
-      },
-      {
-        id: 1,
-        name: "Tomegg",
+        id: 3,
+        name: "EGGGTomegg",
         date_added: "Today",
         owner: "me",
         photo_url:
@@ -277,6 +203,14 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         category: "main",
       },
     ]);
+    setLoggedInUser({
+      id: 1,
+      name: "Tomasz",
+      surname: "K***r",
+      email: "tomasz.k@hacknarok2026.pl",
+      role: "checker",
+      photo_url: "https://api.dicebear.com/7.x/avataaars/svg?seed=Tomasz",
+    });
   }, []);
   return (
     <DataContext.Provider
@@ -287,6 +221,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         setProjectRatings,
         currentProject,
         setCurrentProject,
+        loggedInUser,
+        setLoggedInUser,
       }}
     >
       {children}

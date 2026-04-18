@@ -13,8 +13,8 @@ const App = () => {
   return (
     <DataProvider>
       <Router>
-        <div className="bg-black">
-          <div className="bg-gray-500 flex px-40 py-5">
+        <div className="flex flex-col bg-black min-h-screen">
+          <div className="bg-gray-500 flex px-40 py-5 shrink-0">
             <Link
               to="/"
               replace
@@ -22,14 +22,19 @@ const App = () => {
             >
               <p className="">Twoja porownywarka</p>
             </Link>
-            <p className="">Konto</p>
+
+            <Link to="/account" replace>
+              <p className="">Konto</p>
+            </Link>
           </div>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/project" element={<ProjectPage />} />
-            <Route path="/account" element={<AccountPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <div className="flex-1 flex flex-col">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/project" element={<ProjectPage />} />
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </div>
         </div>
       </Router>
     </DataProvider>

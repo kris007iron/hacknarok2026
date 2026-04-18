@@ -19,3 +19,15 @@ export type ProjectRating= {
   checker_id: number;
   category:string;
 };
+
+export type UserRole = 'user' | 'checker' | 'admin';
+
+export type User =  {
+  id: number;
+  name: string;
+  surname: string;
+  email: string;
+  password?: string; 
+  role: UserRole;
+  photo_url: string; 
+}
