@@ -29,7 +29,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           "https://media.licdn.com/dms/image/v2/C560BAQF3v90K5XSbfQ/company-logo_200_200/company-logo_200_200/0/1630623981742?e=2147483647&v=beta&t=EXiq2PJEToPAh96erH4RxaV9DH0FoYpxIHL6lwjLYoE",
         repo_url: "git",
         tags: "pyton, java/script",
-        description: "very good project",
+        description:
+          "very good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good projectvery good project",
       },
       {
         id: 1,
@@ -268,7 +269,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         id: 1,
         project_id: 1,
         rating: 7,
-        description: "ok",
+        description:
+          "vKróki opis krókrotki opis krotk krotkkrotkkrotkk rotkkrot kkrotkkrotk krotkkrotkkrotkk ro tkkrot krotkkrotkk rotkkrotk",
         isSlop: false,
         verified: true,
         checker_id: 1,
