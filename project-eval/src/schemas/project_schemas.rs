@@ -1,4 +1,4 @@
-use chrono::NaiveDate;
+use chrono::{NaiveDate, NaiveDateTime};
 use serde::{Deserialize, Serialize};
 use validator::Validate;
 /*
@@ -37,6 +37,14 @@ pub struct ProjectResponse {
     pub repo_url: Option<String>,
     pub tags: Option<String>,
     pub description: Option<String>,
+    pub local_data_path: Option<String>,
+    pub stars: Option<i64>,
+    pub forks: Option<i64>,
+    pub open_issues: Option<i64>,
+    pub main_language: Option<String>,
+    pub created_at: Option<NaiveDateTime>,
+    pub updated_at: Option<NaiveDateTime>,
+    pub last_synced_at: Option<NaiveDateTime>,
 }
 
 impl From<crate::models::Project> for ProjectResponse {
@@ -50,6 +58,14 @@ impl From<crate::models::Project> for ProjectResponse {
             repo_url: project.repo_url,
             tags: project.tags,
             description: project.description,
+            local_data_path: project.local_data_path,
+            stars: project.stars,
+            forks: project.forks,
+            open_issues: project.open_issues,
+            main_language: project.main_language,
+            created_at: project.created_at,
+            updated_at: project.updated_at,
+            last_synced_at: project.last_synced_at,
         }
     }
 }

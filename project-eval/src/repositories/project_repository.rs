@@ -45,7 +45,7 @@ impl ProjectRepository {
         let projects = sqlx::query_as!(
             Project,
             r#"
-        SELECT id, name, date_added, owner, photo_url, repo_url, tags, description
+        SELECT id, name, date_added, owner, photo_url, repo_url, tags, description, local_data_path, stars, forks, open_issues, main_language, created_at, updated_at, last_synced_at
         FROM projects
         "#
         )
