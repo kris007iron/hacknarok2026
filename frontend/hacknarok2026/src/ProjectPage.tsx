@@ -128,12 +128,12 @@ export const ProjectPage = () => {
               )}
             </div>
           </div>
-          <div className="text-left mb-10 pl-4 justify-self-center">
-            <h1 className="font-bold text-[70px] font-seasons text-white mx-auto w-full">
+          <div className="text-left mb-10 pl-4 w-full justify-content-center">
+            <h1 className="font-bold text-[70px] font-seasons text-white ml-165 px-auto w-full justify-content-center">
               Comments section
             </h1>
           </div>
-          <div className="bg-[#f3f4f6] p-10 rounded-3xl shadow-sm max-w-4xl mx-auto text-black font-sans">
+          <div className={`bg-[#f3f4f6] p-10 rounded-3xl shadow-sm max-w-4xl mx-auto text-black font-sans ${loading ? "opacity-50" : ""}`}>
             <section className="mb-12">
               <h2 className="text-2xl font-bold mb-6">Write comment</h2>
               <div className="flex items-start gap-6">
@@ -170,8 +170,12 @@ export const ProjectPage = () => {
                           .getComments()
                           .then((res) => res.data)
                           .then((com) => setComments(com))
-                          .finally(() => setLoading(false));
-                      }, 50);
+                          .finally(() => {
+                            setLoading(false)
+                            setName("")
+                            setNewComment("")
+                          });
+                      }, 500);
                     }}
                   >
                     Add your
@@ -182,7 +186,7 @@ export const ProjectPage = () => {
               </div>
             </section>
 
-            <section className={`${loading ? "opacity-50" : ""}`}>
+            <section >
               <div className="flex items-center gap-4 mb-8">
                 <h2 className="text-2xl font-bold whitespace-nowrap">
                   All comments

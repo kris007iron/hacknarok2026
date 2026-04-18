@@ -1,19 +1,19 @@
 export type Project= {
   id?: number;
-  name: string;
+  name?: string;
   date_added: string | Date;
-  owner: string;
-  photo_url: string;
+  owner?: string;
+  photo_url?: string;
   repo_url: string;
   tags: string; 
   description: string;
-  stars: number;
-  forks: number;
-  open_issues: number;
-  main_language: string;
-  created_at: Date;
-  updated_at: Date;
-  last_synced_at: Date;
+  stars?: number;
+  forks?: number;
+  open_issues?: number;
+  main_language?: string;
+  created_at?: Date;
+  updated_at?: Date;
+  last_synced_at?: Date;
 };
 
 export type ProjectRating= {
