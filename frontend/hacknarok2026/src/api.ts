@@ -3,11 +3,12 @@ import type { Comment, Project, ProjectRating } from "./types";
 import { ApiUrl } from "./config";
 
 const api = axios.create({
-    baseURL: ApiUrl + "/api"
+    baseURL: ApiUrl + "/api",
+    withCredentials: true
 })
 const getHeaders = () => {
   return {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json"
   };
 };
 const service = {

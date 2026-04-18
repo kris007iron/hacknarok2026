@@ -8,7 +8,7 @@ export const ProjectPage = () => {
     (pR) => pR.project_id == currentProject?.id && pR.category == "main",
   );
   return (
-    <div className="w-full px-130 ">
+    <div className="w-full">
       {currentProject && (
         <div className="bg-gray-800 w-full h-full  px-10 py-15 overflow-y-auto">
           <p className="text-white font-bold text-[100px] justify-self-center">
