@@ -1,8 +1,5 @@
 use crate::models::Project;
-use sqlx::{
-    mysql::{MySqlPool, MySqlRow},
-    query,
-};
+use sqlx::mysql::MySqlPool;
 
 #[derive(Clone)]
 pub struct ProjectRepository {

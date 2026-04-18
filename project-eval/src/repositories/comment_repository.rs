@@ -1,8 +1,5 @@
 use crate::models::Comment;
-use sqlx::{
-    mysql::{MySqlPool, MySqlRow},
-    query,
-};
+use sqlx::mysql::MySqlPool;
 
 #[derive(Clone)]
 pub struct CommentRepository {

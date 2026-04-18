@@ -1,5 +1,5 @@
 use crate::models::User;
-use sqlx::mysql::{MySqlPool, MySqlRow};
+use sqlx::mysql::MySqlPool;
 
 #[derive(Clone)]
 pub struct UserRepository {
