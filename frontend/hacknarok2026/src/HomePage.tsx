@@ -12,7 +12,7 @@ export const HomePage = () => {
         <p className="justify-self-center text-center font-seasons font-light text-2xl mt-5 text-gray">
           Sign in, add project and let our professionals rate your repository
         </p>
-        <div className="flex items-center mx-auto justify-self-center w-150">
+        <div className="flex items-center mx-auto justify-self-center mt-5 w-150">
           <div className="bg-white rounded-full flex items-center p-2 w-full  shadow-lg border border-gray-100">
             <input
               type="email"
