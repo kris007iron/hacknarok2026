@@ -10,7 +10,8 @@ import { FaUserCircle } from "react-icons/fa";
 import { useState } from "react";
 import service from "./api";
 export const ProjectPage = () => {
-  const { currentProject, projectRatings, comments } = useData();
+  const { currentProject, projectRatings, comments, setComments } = useData();
+  const [loading, setLoading] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [name, setName] = useState("");
 
@@ -163,6 +164,14 @@ export const ProjectPage = () => {
                           description: newComment,
                           project_id: currentProject.id,
                         });
+                      setLoading(true);
+                      setTimeout(() => {
+                        service
+                          .getComments()
+                          .then((res) => res.data)
+                          .then((com) => setComments(com))
+                          .finally(() => setLoading(false));
+                      }, 50);
                     }}
                   >
                     Add your
@@ -173,7 +182,7 @@ export const ProjectPage = () => {
               </div>
             </section>
 
-            <section>
+            <section className={`${loading ? "opacity-50" : ""}`}>
               <div className="flex items-center gap-4 mb-8">
                 <h2 className="text-2xl font-bold whitespace-nowrap">
                   All comments
