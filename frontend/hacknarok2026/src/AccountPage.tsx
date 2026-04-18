@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ProjectSnippet } from "./components/ProjectSnippet";
 import { useData } from "./DataContext";
 
@@ -14,23 +15,23 @@ export const AccountPage = () => {
   );
 
   return (
-    <div className="w-full flex-1 bg-gray-100 ">
-      <div className="w-full bg-gradient-to-r from-green-400 to-green-500 text-6xl font-bold justify-self-center text-center py-10 text-white mb-30">
-        Twoje Konto
+    <div className="w-full flex-1 bg-radial from-darkblue to-darkblack ">
+      <div className="w-full text-[90px] justify-self-center text-center py-10 text-white my-18 font-seasons">
+        Your account
       </div>
       {loggedInUser && loggedInUser.role === "checker" && (
-        <div className="flex flex-col lg:flex-row w-full gap-8 items-start px-40">
-          <div className="w-full lg:w-2/3 bg-gray-200 rounded-3xl p-8 shadow-2xl">
-            <h1 className="text-5xl font-bold text-black mb-5">
-              Projekty do oceny
+        <div className="flex w-full gap-8 items-start px-60">
+          <div className="w-2/3  -mt-24  rounded-3xl p-8 ">
+            <h1 className="text-5xl text-white mb-5 font-seasons">
+              Projects to evaluate
             </h1>
 
-            <div className="space-y-4 overflow-y-auto h-80 scrollbar-hide">
+            <div className="space-y-4 overflow-y-auto h-107 scrollbar-hide">
               {projectsToGrade &&
                 projectsToGrade.map((project) => (
                   <div
                     key={project.id}
-                    className="bg-white rounded-xl overflow-hidden flex items-center shadow-lg"
+                    className=" rounded-xl bg-white overflow-hidden flex items-center shadow-lg"
                   >
                     <div className="w-48 h-40 flex-shrink-0">
                       <img
@@ -43,19 +44,27 @@ export const AccountPage = () => {
                     <div className="flex-1 px-6 py-4">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h2 className="text-2xl font-bold text-black">
-                            {project.name}
-                          </h2>
+                          <Link
+                            to="/project"
+                            onClick={() => {
+                              setCurrentProject(project);
+                            }}
+                          >
+                            {" "}
+                            <h2 className="text-2xl font-bold text-black">
+                              {project.name}
+                            </h2>
+                          </Link>
                           <p className="text-lg text-gray-600">
-                            Kategoria: {project.tags}
+                            Category: {project.tags}
                           </p>
                         </div>
 
                         <button
                           onClick={() => setCurrentProject(project)}
-                          className="border-4 border-green-700 text-black px-8 py-1 rounded-full text-xl font-bold hover:bg-green-50 transition-colors uppercase tracking-wider"
+                          className="border-4 border-datkblack text-black px-8 py-1 rounded-full text-xl font-bold hover:bg-green-50 transition-colors uppercase tracking-wider"
                         >
-                          Oceń
+                          Rate
                         </button>
                       </div>
 

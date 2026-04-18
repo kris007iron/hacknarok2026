@@ -6,6 +6,7 @@ interface AuthPopupProps {
   onClose: () => void;
   onLogin: (email: string, pass: string) => void;
   onRegister: (newUser: Partial<User>) => void;
+  isLoginView: boolean;
 }
 
 export const AuthPopup = ({
@@ -13,9 +14,8 @@ export const AuthPopup = ({
   onClose,
   onLogin,
   onRegister,
+  isLoginView,
 }: AuthPopupProps) => {
-  const [isLoginView, setIsLoginView] = useState(true);
-
   // Form State
   const [formData, setFormData] = useState({
     email: "",
