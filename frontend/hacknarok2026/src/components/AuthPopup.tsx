@@ -16,7 +16,7 @@ export const AuthPopup = ({
 }: AuthPopupProps) => {
   const [isLoginView, setIsLoginView] = useState(true);
 
-  // Stan formularza
+  // Form State
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -59,7 +59,7 @@ export const AuthPopup = ({
         </button>
 
         <h2 className="text-3xl font-black text-center mb-6 text-black">
-          {isLoginView ? "Zaloguj się" : "Stwórz konto"}
+          {isLoginView ? "Log In" : "Create Account"}
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -68,7 +68,7 @@ export const AuthPopup = ({
               <input
                 type="text"
                 name="name"
-                placeholder="Imię"
+                placeholder="First Name"
                 className="w-1/2 p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
                 onChange={handleChange}
                 required
@@ -76,7 +76,7 @@ export const AuthPopup = ({
               <input
                 type="text"
                 name="surname"
-                placeholder="Nazwisko"
+                placeholder="Last Name"
                 className="w-1/2 p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
                 onChange={handleChange}
                 required
@@ -87,7 +87,7 @@ export const AuthPopup = ({
           <input
             type="email"
             name="email"
-            placeholder="E-mail"
+            placeholder="Email Address"
             className="w-full p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
             onChange={handleChange}
             required
@@ -96,7 +96,7 @@ export const AuthPopup = ({
           <input
             type="password"
             name="password"
-            placeholder="Hasło"
+            placeholder="Password"
             className="w-full p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
             onChange={handleChange}
             required
@@ -107,7 +107,7 @@ export const AuthPopup = ({
               <input
                 type="text"
                 name="photo_url"
-                placeholder="URL zdjęcia (opcjonalnie)"
+                placeholder="Profile Photo URL (optional)"
                 className="w-full p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
                 onChange={handleChange}
               />
@@ -116,8 +116,8 @@ export const AuthPopup = ({
                 className="w-full p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
                 onChange={handleChange}
               >
-                <option value="user">Użytkownik</option>
-                <option value="checker">Sprawdzacz</option>
+                <option value="user">User</option>
+                <option value="checker">Checker</option>
               </select>
             </>
           )}
@@ -131,12 +131,12 @@ export const AuthPopup = ({
         </form>
 
         <p className="text-center mt-6 text-gray-600">
-          {isLoginView ? "Nie masz konta?" : "Masz już konto?"}
+          {isLoginView ? "Don't have an account?" : "Already have an account?"}
           <button
             onClick={() => setIsLoginView(!isLoginView)}
             className="ml-2 text-green-600 font-bold hover:underline"
           >
-            {isLoginView ? "Zarejestruj się" : "Zaloguj się"}
+            {isLoginView ? "Sign up" : "Log in"}
           </button>
         </p>
       </div>

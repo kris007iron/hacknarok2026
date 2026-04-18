@@ -44,9 +44,9 @@ const App = () => {
           onLogin={handleLogin}
           onRegister={handleRegister}
         />
-        <div className="bg-[#EBEBEB] flex px-9  0 py-5 shrink-0">
-          <Link to="/" replace className="flex-1 font-bold text-3xl underlined">
-            <p className="">Twoja porownywarka</p>
+        <div className="bg-gray flex px-9  0 py-5 shrink-0">
+          <Link to="/" replace className="flex-1 font-bold text-4xl underlined">
+            <p className="font-seasons font-light ">Repoviewer</p>
           </Link>
 
           <button
