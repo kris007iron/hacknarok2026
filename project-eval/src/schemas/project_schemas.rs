@@ -20,11 +20,11 @@ pub struct CreateProjectRequest {
 */
 
 #[derive(Debug, Deserialize, Validate)]
-pub struct LoginProjectRequest {
-    #[validate(email(message = "Invalid email format"))]
-    pub email: String,
-    #[validate(length(min = 1))]
-    pub password: String,
+pub struct CreateProjectRequest {
+    pub name: String,
+    pub repo_url: String,
+    pub tags: String,
+    pub description: String,
 }
 
 #[derive(Debug, Serialize)]

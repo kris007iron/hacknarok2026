@@ -1,5 +1,5 @@
 use crate::{
-    schemas::{ProjectLanguageResponse, ProjectResponse},
+    schemas::{CreateProjectRequest, ProjectLanguageResponse, ProjectResponse},
     state::AppState,
 };
 use axum::{
@@ -42,4 +42,22 @@ pub async fn get_project_language_by_id(
             .map(ProjectLanguageResponse::from)
             .collect::<Vec<_>>(),
     ))
+}
+
+pub async fn add_project(
+    State(state): State<AppState>,
+    Json(payload): Json<CreateProjectRequest>,
+) -> Result<Json<ProjectResponse>, StatusCode> {
+    let project = state
+        .project_repository
+        .create_project(
+            &payload.name,
+            &payload.repo_url,
+            &payload.tags,
+            &payload.description,
+        )
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    Ok(Json(ProjectResponse::from(project)))
 }

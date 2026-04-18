@@ -1,4 +1,5 @@
 use crate::models::Project;
+use chrono::{NaiveDate, Utc};
 use sqlx::mysql::MySqlPool;
 
 #[derive(Clone)]
@@ -10,39 +11,48 @@ impl ProjectRepository {
     pub fn new(db: MySqlPool) -> Self {
         Self { db }
     }
-    /*
-       pub async fn create(
-           &self,
-           name: &str,
-           surname: &str,
-           email: &str,
-           password: &str,
-           photo: &str,
-       ) -> Result<Project, sqlx::Error> {
-           let project = sqlx::query_as::<_, Project>(
-               r#"
-            INSERT INTO projects (name, surname, email, password, photo_url)
+    pub async fn create_project(
+        &self,
+        name: &str,
+        repo_url: &str,
+        tags: &str,
+        description: &str,
+    ) -> Result<Project, sqlx::Error> {
+        let today: NaiveDate = Utc::now().date_naive();
+        let result = sqlx::query!(
+            r#"
+            INSERT INTO projects (name, date_added, repo_url, tags, description)
             VALUES (?, ?, ?, ?, ?)
-            RETURNING id, name, surname, email, password, role,
-                      photo_url
             "#,
-           )
-           .bind(name)
-           .bind(surname)
-           .bind(email)
-           .bind(password)
-           .bind(photo)
-           .fetch_one(&self.db)
-           .await?;
+            name,
+            today,
+            repo_url,
+            tags,
+            description,
+        )
+        .execute(&self.db)
+        .await;
+        println!("{:?}", result);
+        let id = result?.last_insert_id();
+        let project = sqlx::query_as::<_, Project>(
+            r#"
+            SELECT *
+            FROM projects
+            WHERE id = ?
+            "#,
+        )
+        .bind(id)
+        .fetch_one(&self.db)
+        .await?;
 
-           Ok(project)
-       }
-    */
+        Ok(project)
+    }
+
     pub async fn get_all_projects(&self) -> Result<Vec<Project>, sqlx::Error> {
         let projects = sqlx::query_as!(
             Project,
             r#"
-        SELECT id, name, date_added, owner, photo_url, repo_url, tags, description, local_data_path, stars, forks, open_issues, main_language, created_at, updated_at, last_synced_at
+        SELECT *
         FROM projects
         "#
         )

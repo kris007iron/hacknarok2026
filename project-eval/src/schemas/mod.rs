@@ -2,7 +2,7 @@ pub mod user_schemas;
 pub use user_schemas::{LoginUserRequest, RegisterUserRequest, UserResponse};
 
 pub mod project_schemas;
-pub use project_schemas::ProjectResponse;
+pub use project_schemas::{CreateProjectRequest, ProjectResponse};
 
 pub mod rating_schemas;
 pub use rating_schemas::RatingResponse;
