@@ -188,11 +188,12 @@ export const AccountPage = () => {
               </div>
             </div>
 
-            <h1 className="text-5xl text-white mb-5 font-seasons">
-              Projects to evaluate
-            </h1>
-
-            <div className="space-y-4 overflow-y-auto h-107 scrollbar-hide">
+            {loggedInUser.role == "checker" && (
+              <div>
+                 <h1 className="text-5xl text-white mb-5 font-seasons">
+                  Projects to evaluate
+                </h1>
+                 <div className="space-y-4 overflow-y-auto h-107 scrollbar-hide">
               {projectsToGrade &&
                 projectsToGrade.map((project) => (
                   <div
@@ -241,6 +242,14 @@ export const AccountPage = () => {
                   </div>
                 ))}
             </div>
+              </div>
+
+              
+            )}
+
+           
+
+           
           </div>
 
           <div className="w-full lg:w-1/3 bg-white p-10 rounded-3xl shadow-xl flex flex-col items-center sticky top-10">
