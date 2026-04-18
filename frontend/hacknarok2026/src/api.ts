@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Project, ProjectRating } from "./types";
+import type { Comment, Project, ProjectRating } from "./types";
 import { ApiUrl } from "./config";
 
 const api = axios.create({
@@ -39,6 +39,14 @@ const service = {
   login:(email:string,password:string) =>{
     const headers = getHeaders()
     return api.post("/users/login",{email,password},{headers  })
-  }
+  },
+  getComments: () => {
+    const headers = getHeaders();
+    return api.get<Comment[]>("/comments", { headers });
+  },
+  postComment: (comment:Comment) =>{
+    const headers = getHeaders()
+    return api.post("/comments",comment,{headers})
+  },
 };
 export default service;
