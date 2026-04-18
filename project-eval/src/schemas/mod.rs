@@ -9,3 +9,6 @@ pub use rating_schemas::RatingResponse;
 
 pub mod comment_schemas;
 pub use comment_schemas::{CommentResponse, CreateCommentRequest};
+
+pub mod project_language_schemas;
+pub use project_language_schemas::ProjectLanguageResponse;

@@ -17,7 +17,7 @@ mod state;
 use handlers::auth::login;
 use handlers::comment::{add_comment, get_all_comments};
 use handlers::health::health_check;
-use handlers::project::get_all_projects;
+use handlers::project::{get_all_projects, get_project_language_by_id};
 use handlers::rating::get_all_ratings;
 use state::AppState;
 
@@ -46,6 +46,10 @@ async fn main() {
         .route("/api/users/login", post(login))
         .route("/api/users/register", post(register))
         .route("/api/projects", get(get_all_projects))
+        .route(
+            "/api/projects/{project_id}/languages",
+            get(get_project_language_by_id),
+        )
         .route("/api/ratings", get(get_all_ratings))
         .route("/api/comments", get(get_all_comments))
         .route("/api/comments", post(add_comment))
@@ -57,8 +61,4 @@ async fn main() {
     println!("Server running on http://localhost:3000");
 
     axum::serve(listener, app).await.unwrap();
-}
-
-async fn options_handler() -> impl IntoResponse {
-    axum::http::StatusCode::OK
 }
