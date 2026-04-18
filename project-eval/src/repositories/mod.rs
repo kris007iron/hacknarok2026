@@ -6,3 +6,6 @@ pub use project_repository::ProjectRepository;
 
 pub mod rating_repository;
 pub use rating_repository::RatingRepository;
+
+pub mod comment_repository;
+pub use comment_repository::CommentRepository;

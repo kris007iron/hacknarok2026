@@ -1,9 +1,7 @@
 use sqlx::mysql::MySqlPool;
 
-use crate::{
-    handlers::rating,
-    models::User,
-    repositories::{ProjectRepository, RatingRepository, UserRepository, rating_repository},
+use crate::repositories::{
+    CommentRepository, ProjectRepository, RatingRepository, UserRepository,
 };
 
 #[derive(Clone)]
@@ -12,6 +10,7 @@ pub struct AppState {
     pub user_repository: UserRepository,
     pub project_repository: ProjectRepository,
     pub rating_repository: RatingRepository,
+    pub comment_repository: CommentRepository,
 }
 
 impl AppState {
@@ -20,12 +19,14 @@ impl AppState {
         let user_repository = UserRepository::new(db.clone());
         let project_repository = ProjectRepository::new(db.clone());
         let rating_repository = RatingRepository::new(db.clone());
+        let comment_repository = CommentRepository::new(db.clone());
 
         Ok(Self {
             db,
             user_repository,
             project_repository,
             rating_repository,
+            comment_repository,
         })
     }
 }

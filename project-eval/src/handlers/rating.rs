@@ -1,5 +1,6 @@
 use crate::{schemas::RatingResponse, state::AppState};
 use axum::{Json, extract::State, http::StatusCode};
+
 pub async fn get_all_ratings(
     State(state): State<AppState>,
 ) -> Result<Json<Vec<RatingResponse>>, StatusCode> {
