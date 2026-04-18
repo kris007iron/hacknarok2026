@@ -11,11 +11,3 @@ pub struct User {
     pub role: String,
     pub photo_url: Option<String>,
 }
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Deserialize, Serialize, sqlx::Type)]
-#[sqlx(rename_all = "lowercase")]
-pub enum Role {
-    User,
-    Checker,
-    Admin,
-}

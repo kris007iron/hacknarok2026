@@ -13,6 +13,7 @@ mod state;
 
 use handlers::auth::login;
 use handlers::health::health_check;
+use handlers::project::get_all;
 use state::AppState;
 
 #[tokio::main]
@@ -29,6 +30,7 @@ async fn main() {
     let app = Router::new()
         .route("/health", get(health_check))
         .route("/api/users/login", post(login))
+        .route("/api/projects", get(get_all))
         .with_state(app_state);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();

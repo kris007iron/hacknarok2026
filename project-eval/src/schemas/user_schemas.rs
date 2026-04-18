@@ -1,4 +1,3 @@
-use crate::models::Role;
 use serde::{Deserialize, Serialize};
 use validator::Validate;
 /*
