@@ -31,7 +31,7 @@ export type User =  {
   role: UserRole;
   photo_url: string; 
 }
-export type ProjectComment ={
+export type Comment ={
   id: number;
   project_id: number;
   name: string; 
