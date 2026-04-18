@@ -13,6 +13,7 @@ import { useState } from "react";
 import { AuthPopup } from "./components/AuthPopup";
 import service from "./api";
 import Login from "./assets/Login.png";
+import type { User } from "./types";
 const App = () => {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isLoginView, setIsLoginView] = useState(true);
@@ -33,8 +34,9 @@ const App = () => {
       });
   };
 
-  const handleRegister = (data: any) => {
+  const handleRegister = (data: User) => {
     console.log("Rejestracja:", data);
+    service.register(data);
     setIsAuthOpen(false);
   };
   return (
@@ -46,6 +48,7 @@ const App = () => {
           onLogin={handleLogin}
           onRegister={handleRegister}
           isLoginView={isLoginView}
+          setIsLoginView={setIsLoginView}
         />
         <div className="bg-gray flex px-70  0 py-5 shrink-0 text-[22px] font-seasons">
           <Link to="/" replace className="flex-1 font-bold text-4xl underlined">

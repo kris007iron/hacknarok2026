@@ -1,5 +1,5 @@
 export type Project= {
-  id: number;
+  id?: number;
   name: string;
   date_added: string | Date;
   owner: string;
@@ -17,7 +17,7 @@ export type Project= {
 };
 
 export type ProjectRating= {
-  id: number;
+  id?: number;
   project_id: number;
   rating: number;
   description: string;
@@ -30,7 +30,7 @@ export type ProjectRating= {
 export type UserRole = 'user' | 'checker' | 'admin';
 
 export type User =  {
-  id: number;
+  id?: number;
   name: string;
   surname: string;
   email: string;
@@ -39,7 +39,7 @@ export type User =  {
   photo_url: string; 
 }
 export type Comment ={
-  id: number;
+  id?: number;
   project_id: number;
   name: string; 
   description: string;
