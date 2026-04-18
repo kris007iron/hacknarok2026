@@ -9,7 +9,6 @@ import { HomePage } from "./HomePage";
 import { DataProvider, useData } from "./DataContext";
 import { ProjectPage } from "./ProjectPage";
 import { AccountPage } from "./AccountPage";
-import LogIn from "./assets/Login.png";
 import { useState } from "react";
 import { AuthPopup } from "./components/AuthPopup";
 import service from "./api";
@@ -44,9 +43,9 @@ const App = () => {
           onLogin={handleLogin}
           onRegister={handleRegister}
         />
-        <div className="bg-gray flex px-9  0 py-5 shrink-0">
+        <div className="bg-gray flex px-70  0 py-5 shrink-0 text-[22px] font-seasons">
           <Link to="/" replace className="flex-1 font-bold text-4xl underlined">
-            <p className="font-seasons font-light ">Repoviewer</p>
+            <p className=" font-light ">Repoviewer</p>
           </Link>
 
           <button
@@ -54,7 +53,8 @@ const App = () => {
               setIsAuthOpen(true);
             }}
           >
-            <img className="w-10" src={LogIn} />
+            <span className="font-light">Sign in</span> |{" "}
+            <span className="font-bold underline ">Sign up</span>
           </button>
         </div>
         <div className="flex-1 flex flex-col">
