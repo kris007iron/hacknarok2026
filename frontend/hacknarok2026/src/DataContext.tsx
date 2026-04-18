@@ -41,10 +41,10 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       .getProjectRatings()
       .then((res) => res.data)
       .then((rat) => setProjectRatings(rat));
-    service
-      .getComments()
-      .then((res) => res.data)
-      .then((com) => setComments(com));
+    // service
+    //   .getComments()
+    //   .then((res) => res.data)
+    //   .then((com) => setComments(com));
   }, []);
   return (
     <DataContext.Provider

@@ -62,6 +62,10 @@ func (s *GitHubService) fetchAndSaveCommits(projectID uint, repoURL string) erro
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("GitHub API returned status: %d", resp.StatusCode)
+	}
+
 	var githubCommits []GithubCommitResp
 	if err := json.NewDecoder(resp.Body).Decode(&githubCommits); err != nil {
 		return err
