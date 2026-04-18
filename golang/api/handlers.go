@@ -22,10 +22,6 @@ func InitDB() {
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
-	err = DB.AutoMigrate(&Project{}, &ProjectCommit{}, &ProjectLanguage{}, &ProjectContributor{})
-	if err != nil {
-		return
-	}
 }
 
 func GetAllProjects() ([]Project, error) {

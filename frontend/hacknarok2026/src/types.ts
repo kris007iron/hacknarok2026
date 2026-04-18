@@ -7,6 +7,13 @@ export type Project= {
   repo_url: string;
   tags: string; 
   description: string;
+  stars: number;
+  forks: number;
+  open_issues: number;
+  main_language: string;
+  created_at: Date;
+  updated_at: Date;
+  last_synced_at: Date;
 };
 
 export type ProjectRating= {
