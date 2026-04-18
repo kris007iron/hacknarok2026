@@ -15,30 +15,28 @@ export const ProjectSnippet = ({ project }: ProjectSnippetType) => {
 
   return (
     <div
-      className="w-full h-100 bg-black rounded-2xl p-10 mb-10 flex"
+      className="w-full h-60 mb-10 flex shadow-xl rounded-2xl bg-[#F2F2F2]"
       onClick={() => {
         setCurrentProject(project);
         navigate("/project");
       }}
     >
-      <img className="h-full p-10 -mt-5" src={project.photo_url} />
+      <img className="h-full rounded-l-xl " src={project.photo_url} />
 
-      <div className="w-full h-full ">
-        <div className="w-full h-26 bg-gray-500 p-5">
-          <div>{project.name}</div>
-          <div> {project.owner}</div>
-        </div>
-        <div className="w-full h-26 bg-gray-600 p-5">
+      <div className="w-full h-full ml-10">
+        <div className="w-full flex p-5">
+          <div className="flex-1 font-bold text-3xl">{project.name}</div>
           {rating && (
             <Rating
               precision={0.5}
               defaultValue={rating.rating / 2}
               readOnly
+              size="large"
             ></Rating>
           )}
         </div>
-        <div className="w-full h-28 bg-gray-700 p-5 text-white">
-          {project.description.slice(0, 100)}...
+        <div className="w-full text-black mt-10">
+          {project.description.slice(0, 200)}...
         </div>
       </div>
     </div>

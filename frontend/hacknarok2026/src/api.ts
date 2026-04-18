@@ -34,6 +34,10 @@ const service = {
   createProjectRating: (projectRating:ProjectRating) =>{
     const headers = getHeaders()
     return api.post("/projectRatings",projectRating,{headers})
+  },
+  login:(email:string,password:string) =>{
+    const headers = getHeaders()
+    return api.post("/users/login",{email,password},{headers  })
   }
 };
 export default service;
