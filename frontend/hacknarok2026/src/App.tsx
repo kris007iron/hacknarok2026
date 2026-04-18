@@ -12,9 +12,12 @@ import { AccountPage } from "./AccountPage";
 import { useState } from "react";
 import { AuthPopup } from "./components/AuthPopup";
 import service from "./api";
+import Login from "./assets/Login.png";
 const App = () => {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const { setLoggedInUser } = useData();
+  const [isLoginView, setIsLoginView] = useState(true);
+
+  const { setLoggedInUser, loggedInUser } = useData();
   const handleLogin = (email: string, pass: string) => {
     console.log("Logowanie:", email, pass);
 
@@ -42,20 +45,36 @@ const App = () => {
           onClose={() => setIsAuthOpen(false)}
           onLogin={handleLogin}
           onRegister={handleRegister}
+          isLoginView={isLoginView}
         />
         <div className="bg-gray flex px-70  0 py-5 shrink-0 text-[22px] font-seasons">
           <Link to="/" replace className="flex-1 font-bold text-4xl underlined">
             <p className=" font-light ">Repoviewer</p>
           </Link>
 
-          <button
-            onClick={() => {
-              setIsAuthOpen(true);
-            }}
-          >
-            <span className="font-light">Sign in</span> |{" "}
-            <span className="font-bold underline ">Sign up</span>
-          </button>
+          {!loggedInUser && (
+            <button
+              onClick={() => {
+                setIsAuthOpen(true);
+              }}
+            >
+              <span onClick={() => setIsLoginView(true)} className="font-light">
+                Sign in
+              </span>{" "}
+              |{" "}
+              <span
+                onClick={() => setIsLoginView(false)}
+                className="font-bold underline "
+              >
+                Sign up
+              </span>
+            </button>
+          )}
+          {loggedInUser && (
+            <Link to="/account">
+              <img className="h-10" src={Login} />
+            </Link>
+          )}
         </div>
         <div className="flex-1 flex flex-col">
           <Routes>
