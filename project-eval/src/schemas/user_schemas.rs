@@ -26,6 +26,18 @@ pub struct LoginUserRequest {
     pub password: String,
 }
 
+#[derive(Debug, Deserialize, Validate)]
+pub struct RegisterUserRequest {
+    pub name: String,
+    pub surname: String,
+    #[validate(email(message = "Invalid email format"))]
+    pub email: String,
+    pub password: String,
+    #[validate(length(min = 1))]
+    pub photo_url: String,
+    pub role: String,
+}
+
 #[derive(Debug, Serialize)]
 pub struct UserResponse {
     pub id: i32,

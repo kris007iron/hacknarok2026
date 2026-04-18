@@ -11,7 +11,7 @@ impl UserRepository {
         Self { db }
     }
 
-    pub async fn create(
+    pub async fn create_user(
         &self,
         name: &str,
         surname: &str,
@@ -19,19 +19,31 @@ impl UserRepository {
         password: &str,
         photo: &str,
     ) -> Result<User, sqlx::Error> {
-        let user = sqlx::query_as::<_, User>(
+        let result = sqlx::query!(
             r#"
             INSERT INTO users (name, surname, email, password, photo_url)
             VALUES (?, ?, ?, ?, ?)
-            RETURNING id, name, surname, email, password, role,
+            "#,
+            name,
+            surname,
+            email,
+            password,
+            photo
+        )
+        .execute(&self.db)
+        .await?;
+
+        let id = result.last_insert_id();
+
+        let user = sqlx::query_as::<_, User>(
+            r#"
+            SELECT id, name, surname, email, password, role,
                       photo_url
+            FROM users
+            WHERE id = ?
             "#,
         )
-        .bind(name)
-        .bind(surname)
-        .bind(email)
-        .bind(password)
-        .bind(photo)
+        .bind(id)
         .fetch_one(&self.db)
         .await?;
 

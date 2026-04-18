@@ -21,6 +21,8 @@ use handlers::project::get_all_projects;
 use handlers::rating::get_all_ratings;
 use state::AppState;
 
+use crate::handlers::auth::register;
+
 #[tokio::main]
 async fn main() {
     dotenvy::dotenv().ok();
@@ -42,6 +44,7 @@ async fn main() {
         .route("/health", get(health_check))
         // .route("/api/users/login", options(options_handler))
         .route("/api/users/login", post(login))
+        .route("/api/users/register", post(register))
         .route("/api/projects", get(get_all_projects))
         .route("/api/ratings", get(get_all_ratings))
         .route("/api/comments", get(get_all_comments))
