@@ -6,13 +6,13 @@ export const HomePage = () => {
   return (
     <div className="w-full h-auto bg-gradient-to-r from-darkblack to-darkblue">
       <div className="w-full text-6xl font-bold justify-self-center text-center py-20 text-gray">
-        <p className="w-140 justify-self-center text-center font-seasons font-light">
+        <p className="justify-self-center px-auto text-center font-seasons font-light">
           Repositories reviews done by professionals
         </p>
-        <p className="w-140 justify-self-center text-center font-seasons font-light text-2xl mt-5 text-gray">
+        <p className="justify-self-center text-center font-seasons font-light text-2xl mt-5 text-gray">
           Sign in, add project and let our professionals rate your repository
         </p>
-        <div className="flex w-120 items-center justify-self-center">
+        <div className="flex items-center mx-auto justify-self-center w-150">
           <div className="bg-white rounded-full flex items-center p-2 w-full  shadow-lg border border-gray-100">
             <input
               type="email"
