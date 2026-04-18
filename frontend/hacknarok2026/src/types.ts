@@ -7,7 +7,7 @@ export type Project= {
   repo_url: string;
   tags: string; 
   description: string;
-}
+};
 
 export type ProjectRating= {
   id: number;
@@ -17,4 +17,5 @@ export type ProjectRating= {
   isSlop: boolean;
   verified: boolean;
   checker_id: number;
-}
+  category:string;
+};
