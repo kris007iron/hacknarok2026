@@ -2,7 +2,10 @@ import { ProjectSnippet } from "./components/ProjectSnippet";
 import { useData } from "./DataContext";
 import Sort from "./assets/Sort.png";
 export const HomePage = () => {
-  const { projects } = useData();
+  const { projects, projectRatings } = useData();
+  const projectsWithGrade = projects?.filter((p) =>
+    projectRatings?.find((pR) => pR.project_id == p.id),
+  );
   return (
     <div className="w-full h-auto bg-gradient-to-r from-darkblack to-darkblue">
       <div className="w-full text-6xl font-bold justify-self-center text-center py-20 text-gray">
@@ -32,7 +35,8 @@ export const HomePage = () => {
           <p className="mr-2 text-[22px]">Sort</p>
           <img height={25} className="h-7 mr-5" src={Sort} />
         </div>
-        {projects && projects.map((p) => <ProjectSnippet project={p} />)}
+        {projectsWithGrade &&
+          projectsWithGrade.map((p) => <ProjectSnippet project={p} />)}
       </div>
     </div>
   );

@@ -1,14 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ProjectSnippet } from "./components/ProjectSnippet";
 import { useData } from "./DataContext";
 import { useState } from "react";
 import service from "./api";
+import { PaymentModal } from "./PaymentModal";
 
 export const AccountPage = () => {
-  const { loggedInUser, projects, projectRatings, setCurrentProject, setProjects } =
-    useData();
-      const current = new Date();
-
+  const {
+    loggedInUser,
+    projects,
+    projectRatings,
+    setCurrentProject,
+    setProjects,
+  } = useData();
+  const current = new Date();
+  const navigate = useNavigate();
   const projectsWithGrade = projects?.filter((p) =>
     projectRatings?.find((pR) => pR.project_id == p.id),
   );
@@ -16,35 +22,47 @@ export const AccountPage = () => {
   const projectsToGrade = projects?.filter((p) =>
     projectsWithGrade?.every((pR) => pR.id != p.id),
   );
-
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [newProject, setNewProject] = useState({
     name: "",
     repo_url: "",
     tags: "",
     description: "",
-    date_added:  current.getFullYear() + "-" + current.getMonth() + "-" + current.getDate(),
+    date_added:
+      current.getFullYear() +
+      "-" +
+      current.getMonth() +
+      "-" +
+      current.getDate(),
   });
 
-  const handleSubmit = (e:any) => {
-  e.preventDefault();
+  const handleFinishModal = () => {
+    service.createProject(newProject);
+    setNewProject({
+      name: "",
+      repo_url: "",
+      tags: "",
+      description: "",
+      date_added:
+        current.getFullYear() +
+        "-" +
+        current.getMonth() +
+        "-" +
+        current.getDate(),
+    });
+    setTimeout(() => {
+      service
+        .getProjects()
+        .then((res) => res.data)
+        .then((proj) => setProjects(proj));
+    }, 500);
+    setIsPaymentModalOpen(false);
+  };
 
-  console.log("NEW PROJECT:", newProject);
-  service.createProject(newProject)
-  setNewProject({
-    name: "",
-    repo_url: "",
-    tags: "",
-    description: "",
-    date_added: current.getFullYear() + "-" + current.getMonth() + "-" + current.getDate(),
-   });
-   setTimeout(() => {
-                        service
-                          .getProjects()
-                          .then((res) => res.data)
-                          .then((proj) => setProjects(proj))
-                          
-                          
-                      }, 500);
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log("herre");
+    setIsPaymentModalOpen(true);
   };
 
   return (
@@ -94,7 +112,10 @@ export const AccountPage = () => {
                         </div>
 
                         <button
-                          onClick={() => setCurrentProject(project)}
+                          onClick={() => {
+                            setCurrentProject(project);
+                            navigate("/judging");
+                          }}
                           className="border-4 border-datkblack text-black px-8 py-1 rounded-full text-xl font-bold hover:bg-green-50 transition-colors uppercase tracking-wider"
                         >
                           Rate
@@ -128,19 +149,25 @@ export const AccountPage = () => {
                   ? "Sprawdzacz"
                   : loggedInUser.role}
               </p>
-              <div className="text-2xl pt-4">
-                <span className="font-light">Saldo:</span>{" "}
-                <span className="font-bold">000PLN</span>
-              </div>
+              {loggedInUser.role === "checker" && (
+                <div className="text-2xl pt-4">
+                  <span className="font-light">Saldo:</span>{" "}
+                  <span className="font-bold">{loggedInUser.money} PLN</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
       )}
 
       {loggedInUser && loggedInUser.role === "user" && (
-         <div className="flex w-full gap-8 items-start px-60">
+        <div className="flex w-full gap-8 items-start px-60">
+          <PaymentModal
+            isOpen={isPaymentModalOpen}
+            onClose={() => setIsPaymentModalOpen(false)}
+            onConfirm={() => handleFinishModal()}
+          />
           <div className="w-2/3  -mt-24  rounded-3xl p-8 ">
-
             <div className="w-full mb-10">
               <div className="bg-white rounded-3xl p-8 shadow-xl">
                 <h2 className="text-3xl font-seasons mb-6 text-black">
@@ -199,69 +226,6 @@ export const AccountPage = () => {
                 </form>
               </div>
             </div>
-
-            {loggedInUser.role == "checker" && (
-              <div>
-                 <h1 className="text-5xl text-white mb-5 font-seasons">
-                  Projects to evaluate
-                </h1>
-                 <div className="space-y-4 overflow-y-auto h-107 scrollbar-hide">
-              {projectsToGrade &&
-                projectsToGrade.map((project) => (
-                  <div
-                    key={project.id}
-                    className=" rounded-xl bg-white overflow-hidden flex items-center shadow-lg"
-                  >
-                    <div className="w-48 h-40 flex-shrink-0">
-                      <img
-                        src={project.photo_url}
-                        alt={project.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
-                    <div className="flex-1 px-6 py-4">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <Link
-                            to="/project"
-                            onClick={() => {
-                              setCurrentProject(project);
-                            }}
-                          >
-                            {" "}
-                            <h2 className="text-2xl font-bold text-black">
-                              {project.name}
-                            </h2>
-                          </Link>
-                          <p className="text-lg text-gray-600">
-                            Category: {project.tags}
-                          </p>
-                        </div>
-
-                        <button
-                          onClick={() => setCurrentProject(project)}
-                          className="border-4 border-datkblack text-black px-8 py-1 rounded-full text-xl font-bold hover:bg-green-50 transition-colors uppercase tracking-wider"
-                        >
-                          Rate
-                        </button>
-                      </div>
-
-                      <p className="text-xs mt-3 text-gray-500 leading-tight line-clamp-3">
-                        {project.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-            </div>
-              </div>
-
-              
-            )}
-
-           
-
-           
           </div>
 
           <div className="w-full lg:w-1/3 bg-white p-10 rounded-3xl shadow-xl flex flex-col items-center sticky top-10">
@@ -277,11 +241,7 @@ export const AccountPage = () => {
               <h2 className="text-3xl font-black text-black">
                 {loggedInUser.name} {loggedInUser.surname}
               </h2>
-              <p className="text-2xl text-gray-700">
-                {loggedInUser.role === "checker"
-                  ? "Sprawdzacz"
-                  : loggedInUser.role}
-              </p>
+              <p className="text-2xl text-gray-700">{loggedInUser.role}</p>
               <div className="text-2xl pt-4">
                 <span className="font-light">Saldo:</span>{" "}
                 <span className="font-bold">000PLN</span>
