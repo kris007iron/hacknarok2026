@@ -3,10 +3,9 @@ use axum::{
     http::{HeaderValue, Method, header},
     routing::{get, post},
 };
-use axum::{response::IntoResponse, routing::options};
 use dotenvy;
 use std::env;
-use tower_http::cors::{Any, CorsLayer};
+use tower_http::cors::CorsLayer;
 
 mod handlers;
 mod models;
@@ -21,7 +20,11 @@ use handlers::project::{get_all_projects, get_project_language_by_id};
 use handlers::rating::get_all_ratings;
 use state::AppState;
 
-use crate::handlers::{auth::register, project::add_project};
+use crate::handlers::{
+    auth::register,
+    project::{add_project, get_project_commits_by_id, get_project_contributors_by_id},
+    rating::add_rating,
+};
 
 #[tokio::main]
 async fn main() {
@@ -51,7 +54,16 @@ async fn main() {
             "/api/projects/{project_id}/languages",
             get(get_project_language_by_id),
         )
+        .route(
+            "/api/projects/{project_id}/contributors",
+            get(get_project_contributors_by_id),
+        )
+        .route(
+            "/api/projects/{project_id}/commits",
+            get(get_project_commits_by_id),
+        )
         .route("/api/ratings", get(get_all_ratings))
+        .route("/api/ratings", post(add_rating))
         .route("/api/comments", get(get_all_comments))
         .route("/api/comments", post(add_comment))
         .layer(cors)

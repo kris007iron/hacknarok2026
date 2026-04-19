@@ -1,5 +1,8 @@
 use crate::{
-    schemas::{CreateProjectRequest, ProjectLanguageResponse, ProjectResponse},
+    schemas::{
+        CreateProjectRequest, ProjectCommitResponse, ProjectContributorResponse,
+        ProjectLanguageResponse, ProjectResponse,
+    },
     state::AppState,
 };
 use axum::{
@@ -40,6 +43,46 @@ pub async fn get_project_language_by_id(
         project_languages
             .into_iter()
             .map(ProjectLanguageResponse::from)
+            .collect::<Vec<_>>(),
+    ))
+}
+
+pub async fn get_project_contributors_by_id(
+    State(state): State<AppState>,
+    Path(project_id): Path<i32>,
+) -> Result<Json<Vec<ProjectContributorResponse>>, StatusCode> {
+    let project_contributors = state
+        .project_contributor_repository
+        .find_by_project_id(project_id)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    if project_contributors.len() == 0 {
+        return Err(StatusCode::NOT_FOUND);
+    }
+    Ok(Json(
+        project_contributors
+            .into_iter()
+            .map(ProjectContributorResponse::from)
+            .collect::<Vec<_>>(),
+    ))
+}
+
+pub async fn get_project_commits_by_id(
+    State(state): State<AppState>,
+    Path(project_id): Path<i32>,
+) -> Result<Json<Vec<ProjectCommitResponse>>, StatusCode> {
+    let project_commits = state
+        .project_commit_repository
+        .find_by_project_id(project_id)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    if project_commits.len() == 0 {
+        return Err(StatusCode::NOT_FOUND);
+    }
+    Ok(Json(
+        project_commits
+            .into_iter()
+            .map(ProjectCommitResponse::from)
             .collect::<Vec<_>>(),
     ))
 }

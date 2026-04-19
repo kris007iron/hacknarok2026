@@ -12,3 +12,9 @@ pub use comment_schemas::{CommentResponse, CreateCommentRequest};
 
 pub mod project_language_schemas;
 pub use project_language_schemas::ProjectLanguageResponse;
+
+pub mod project_contributor_schemas;
+pub use project_contributor_schemas::ProjectContributorResponse;
+
+pub mod project_commit_schemas;
+pub use project_commit_schemas::ProjectCommitResponse;
