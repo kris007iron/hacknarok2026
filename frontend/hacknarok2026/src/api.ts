@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Comment, Project, ProjectRating, User } from "./types";
+import type { Comment, Commit, Contributor, Language, Project, ProjectRating, User } from "./types";
 import { ApiUrl } from "./config";
 
 const api = axios.create({
@@ -19,6 +19,18 @@ const service = {
   getProjects: () => {
     const headers = getHeaders();
     return api.get<Project[]>("/projects", { headers });
+  },
+  getCommits: (projectId: number) => {
+    const headers = getHeaders();
+    return api.get<Commit[]>(`/projects/${projectId}/commits`, { headers });
+  },
+  getLanguages: (projectId: number) => {
+    const headers = getHeaders();
+    return api.get<Language[]>(`/projects/${projectId}/languages`, { headers });
+  },
+   getContributors: (projectId: number) => {
+    const headers = getHeaders();
+    return api.get<Contributor[]>(`/projects/${projectId}/contributors`, { headers });
   },
   createProject: (project:Project) =>{
     const headers = getHeaders()

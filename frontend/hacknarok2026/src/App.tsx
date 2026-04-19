@@ -51,7 +51,7 @@ const App = () => {
           isLoginView={isLoginView}
           setIsLoginView={setIsLoginView}
         />
-        <div className="bg-gray flex px-70  0 py-5 shrink-0 text-[22px] font-seasons">
+        <div className="bg-medblue flex px-70  0 py-5 shrink-0 text-[22px] font-seasons">
           <Link to="/" replace className="flex-1 font-bold text-4xl underlined">
             <p className=" font-light ">Repoviewer</p>
           </Link>
