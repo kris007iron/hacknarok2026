@@ -4,30 +4,38 @@ import (
 	"golang/api"
 	"log"
 	"os"
+	"time"
 )
 
 func main() {
-	// 1. Inicjalizacja bazy danych
 	api.InitDB()
+	ghService := &api.GitHubService{Token: os.Getenv("GITHUB_TOKEN")}
 
-	// 2. Inicjalizacja serwisu GitHub
-	ghService := &api.GitHubService{
-		Token: os.Getenv("GITHUB_TOKEN"),
-	}
+	ticker := time.NewTicker(5 * time.Second)
+	defer ticker.Stop()
 
-	// 3. POBIERZ PROJEKTY Z BAZY (używamy funkcji GetAllProjects, którą masz w handlers.go)
-	projects, err := api.GetAllProjects()
-	if err != nil {
-		log.Fatal("Nie udało się pobrać projektów z bazy:", err)
-	}
+	log.Println("Serwis monitorujący uruchomiony. Oczekiwanie na dane...")
 
-	for i := range projects {
-		err := ghService.SyncFullProject(&projects[i])
-
+	for range ticker.C {
+		projects, err := api.GetPendingProjects()
 		if err != nil {
-			log.Printf("Błąd synchronizacji %s: %v", projects[i].Name, err)
+			log.Printf("Błąd bazy: %v", err)
 			continue
 		}
-		log.Printf("Projekt %s zsynchronizowany pomyślnie", projects[i].Name)
+
+		if len(projects) == 0 {
+			continue
+		}
+
+		for i := range projects {
+			log.Printf("Przetwarzanie projektu: %s...", projects[i].Name)
+
+			err := ghService.SyncFullProject(&projects[i])
+			if err != nil {
+				log.Printf("Błąd synchronizacji %s: %v", projects[i].Name, err)
+				continue
+			}
+			log.Printf("Sukces: %s", projects[i].Name)
+		}
 	}
 }

@@ -20,6 +20,7 @@ func (s *GitHubService) SyncFullProject(p *Project) error {
 		return fmt.Errorf("błąd pobierania info: %v", err)
 	}
 
+	p.Owner = ghData.Owner.Login
 	p.Stars = uint(ghData.Stars)
 	p.Forks = uint(ghData.Forks)
 	p.OpenIssues = uint(ghData.OpenIssues)
@@ -32,17 +33,17 @@ func (s *GitHubService) SyncFullProject(p *Project) error {
 		return fmt.Errorf("błąd zapisu projektu: %v", err)
 	}
 
-	if err := s.fetchAndSaveCommits(p.ID, p.RepoUrl); err != nil {
-		fmt.Printf("Błąd commitów dla %s: %v\n", p.Name, err)
-	}
-
-	if err := s.fetchAndSaveLanguages(p.ID, p.RepoUrl); err != nil {
-		fmt.Printf("Błąd języków dla %s: %v\n", p.Name, err)
-	}
-
-	if err := s.fetchAndSaveContributors(p.ID, p.RepoUrl); err != nil {
-		fmt.Printf("Błąd kontrybutorów dla %s: %v\n", p.Name, err)
-	}
+	//if err := s.fetchAndSaveCommits(p.ID, p.RepoUrl); err != nil {
+	//	fmt.Printf("Błąd commitów dla %s: %v\n", p.Name, err)
+	//}
+	//
+	//if err := s.fetchAndSaveLanguages(p.ID, p.RepoUrl); err != nil {
+	//	fmt.Printf("Błąd języków dla %s: %v\n", p.Name, err)
+	//}
+	//
+	//if err := s.fetchAndSaveContributors(p.ID, p.RepoUrl); err != nil {
+	//	fmt.Printf("Błąd kontrybutorów dla %s: %v\n", p.Name, err)
+	//}
 
 	return nil
 }
@@ -161,4 +162,10 @@ func (s *GitHubService) fetchAndSaveContributors(projectID uint, repoURL string)
 		DB.Create(&contributor)
 	}
 	return nil
+}
+
+func GetPendingProjects() ([]Project, error) {
+	var projects []Project
+	err := DB.Where("last_synced_at IS NULL").Limit(10).Find(&projects).Error
+	return projects, err
 }

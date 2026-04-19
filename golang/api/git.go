@@ -55,6 +55,7 @@ type GithubCommitResp struct {
 
 type GithubRepoResp struct {
 	FullName    string    `json:"full_name"`
+	Owner       Owner     `json:"owner"`
 	Description string    `json:"description"`
 	Stars       int       `json:"stargazers_count"`
 	Forks       int       `json:"forks_count"`
@@ -62,4 +63,9 @@ type GithubRepoResp struct {
 	Language    string    `json:"language"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
+}
+
+type Owner struct {
+	Login     string `json:"login"`
+	AvatarURL string `json:"avatar_url"`
 }
