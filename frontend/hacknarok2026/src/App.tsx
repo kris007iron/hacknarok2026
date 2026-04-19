@@ -14,6 +14,7 @@ import { AuthPopup } from "./components/AuthPopup";
 import service from "./api";
 import Login from "./assets/Login.png";
 import type { User } from "./types";
+import { JudgePage } from "./JudgePage";
 const App = () => {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isLoginView, setIsLoginView] = useState(true);
@@ -83,6 +84,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/project" element={<ProjectPage />} />
+            <Route path="/judging" element={<JudgePage />} />
             <Route path="/account" element={<AccountPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

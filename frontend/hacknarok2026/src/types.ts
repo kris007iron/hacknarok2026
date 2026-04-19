@@ -21,8 +21,8 @@ export type ProjectRating= {
   project_id: number;
   rating: number;
   description: string;
-  isSlop: boolean;
-  verified: boolean;
+  isSlop?: boolean;
+  verified?: boolean;
   checker_id: number;
   category:string;
 };
@@ -37,6 +37,7 @@ export type User =  {
   password?: string; 
   role: UserRole;
   photo_url: string; 
+  money?:number;
 }
 export type Comment ={
   id?: number;
