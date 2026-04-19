@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import { ProjectSnippet } from "./components/ProjectSnippet";
 import { useData } from "./DataContext";
 import { useState } from "react";
+import service from "./api";
 
 export const AccountPage = () => {
-  const { loggedInUser, projects, projectRatings, setCurrentProject } =
+  const { loggedInUser, projects, projectRatings, setCurrentProject, setProjects } =
     useData();
+      const current = new Date();
 
   const projectsWithGrade = projects?.filter((p) =>
     projectRatings?.find((pR) => pR.project_id == p.id),
@@ -17,22 +19,32 @@ export const AccountPage = () => {
 
   const [newProject, setNewProject] = useState({
     name: "",
-    url: "",
+    repo_url: "",
     tags: "",
     description: "",
+    date_added:  current.getFullYear() + "-" + current.getMonth() + "-" + current.getDate(),
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:any) => {
   e.preventDefault();
 
   console.log("NEW PROJECT:", newProject);
-
+  service.createProject(newProject)
   setNewProject({
     name: "",
-    url: "",
+    repo_url: "",
     tags: "",
     description: "",
+    date_added: current.getFullYear() + "-" + current.getMonth() + "-" + current.getDate(),
    });
+   setTimeout(() => {
+                        service
+                          .getProjects()
+                          .then((res) => res.data)
+                          .then((proj) => setProjects(proj))
+                          
+                          
+                      }, 500);
   };
 
   return (
@@ -149,9 +161,9 @@ export const AccountPage = () => {
                   <input
                     type="text"
                     placeholder="Project URL"
-                    value={newProject.url}
+                    value={newProject.repo_url}
                     onChange={(e) =>
-                      setNewProject({ ...newProject, url: e.target.value })
+                      setNewProject({ ...newProject, repo_url: e.target.value })
                     }
                     className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-black"
                   />
