@@ -21,8 +21,8 @@ export type ProjectRating= {
   project_id: number;
   rating: number;
   description: string;
-  isSlop?: boolean;
-  verified?: boolean;
+  is_slop?: number;
+  verified?: number;
   checker_id: number;
   category:string;
 };

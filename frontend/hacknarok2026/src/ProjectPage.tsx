@@ -110,7 +110,7 @@ export const ProjectPage = () => {
 
                   <div>
                     <span className="font-bold">AI Slop: </span>
-                    {rating?.isSlop ? "Yes 🤖" : "No ✅"}
+                    {rating?.is_slop ? "Yes 🤖" : "No ✅"}
                   </div>
                 </div>
               </div>

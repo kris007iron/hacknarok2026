@@ -6,6 +6,7 @@ import (
 
 type Project struct {
 	ID      uint   `json:"id" gorm:"primaryKey"`
+	Owner   string `json:"owner"`
 	Name    string `json:"name"`
 	RepoUrl string `json:"repo_url"`
 
