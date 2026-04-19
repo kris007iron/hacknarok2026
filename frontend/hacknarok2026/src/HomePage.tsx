@@ -4,7 +4,7 @@ import Sort from "./assets/Sort.png";
 export const HomePage = () => {
   const { projects, projectRatings } = useData();
   const projectsWithGrade = projects?.filter((p) =>
-    projectRatings?.find((pR) => pR.project_id == p.id),
+    projectRatings?.find((pR) => pR.project_id == p.id && pR.category== "main" && !pR.is_slop),
   );
   return (
     <div className="w-full h-auto bg-gradient-to-r from-darkblack to-darkblue">

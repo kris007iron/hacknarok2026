@@ -12,14 +12,14 @@ import service from "./api";
 import { useNavigate } from "react-router-dom";
 
 export const JudgePage = () => {
-  const { currentProject, loggedInUser, setCurrentProject, setLoggedInUser } =
+  const { currentProject, loggedInUser, setCurrentProject, setLoggedInUser,setProjectRatings } =
     useData();
   const [currentCategory, setCurrentCategory] = useState(0);
   const [currentRate, setCurrentRate] = useState(5);
   const [categoryDesc, setCategoryDesc] = useState("");
   const [loading, setLoading] = useState(false);
   const [rateSum, setRateSum] = useState(0);
-  const [isSlop, setIsSlop] = useState(false);
+  const [isSlop, setIsSlop] = useState(0);
   const navigate = useNavigate();
   const categories = [
     "Innovation",
@@ -153,8 +153,8 @@ export const JudgePage = () => {
                           type="checkbox"
                           id="slop"
                           className="w-8 h-8 rounded border-2 border-black accent-black cursor-pointer"
-                          checked={isSlop}
-                          onChange={(e) => setIsSlop(e.target.checked)}
+                          checked={isSlop ? true : false}
+                          onChange={(e) => setIsSlop(e.target.checked ? 1 : 0)}
                         />
                         <label
                           htmlFor="slop"
@@ -171,8 +171,9 @@ export const JudgePage = () => {
                       : "Overall Description"}{" "}
                   </div>
                   <textarea
-                    className="bg-white rounded-xl border-1 border-darkblack h-25"
+                    className="bg-white rounded-xl border-1 border-darkblack h-25 p-2"
                     onChange={(e) => setCategoryDesc(e.target.value)}
+                    value={categoryDesc}
                   />
                   <button
                     className="bg-[#12294F] text-white py-3 font-bold text-2xl w-80 mx-auto mt-15 rounded-xl"
@@ -185,6 +186,8 @@ export const JudgePage = () => {
                           rating: currentRate,
                           project_id: currentProject.id,
                           checker_id: loggedInUser.id,
+                          is_slop:isSlop,
+                          verified:0
                         };
                         service.createProjectRating(rating);
                         setLoading(true);
@@ -199,10 +202,11 @@ export const JudgePage = () => {
                         const rating: ProjectRating = {
                           category: "main",
                           description: categoryDesc,
-                          rating: rateSum / 5,
+                          rating: Math.round(rateSum / 5),
                           project_id: currentProject.id,
                           checker_id: loggedInUser.id,
-                          isSlop: isSlop,
+                          is_slop: isSlop,
+                          verified:0
                         };
                         service.createProjectRating(rating);
                         setLoading(true);
@@ -217,6 +221,10 @@ export const JudgePage = () => {
                           if (user.money) user.money += 10;
                           else user.money = 10;
                           setLoggedInUser(user);
+                          service
+                            .getProjectRatings()
+                            .then((res) => res.data)
+                            .then((rat) => setProjectRatings(rat));
                           navigate("/account");
                         }, 500);
                       }
