@@ -71,7 +71,7 @@ export const AuthPopup = ({
                 type="text"
                 name="name"
                 placeholder="First Name"
-                className="w-1/2 p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
+                className="w-1/2 p-3 bg-gray-100 rounded-xl  autofill:shadow-[inset_0_0_0px_1000px_#f3f4f6] autofill:border-darkblue autofill:text-black border-2 border-transparent focus:border-darkblue outline-none transition-all"
                 onChange={handleChange}
                 required
               />
@@ -79,7 +79,7 @@ export const AuthPopup = ({
                 type="text"
                 name="surname"
                 placeholder="Last Name"
-                className="w-1/2 p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
+                className="w-1/2 p-3 bg-gray-100 rounded-xl autofill:shadow-[inset_0_0_0px_1000px_#f3f4f6] autofill:border-darkblue autofill:text-black  border-2 border-transparent focus:border-darkblue outline-none transition-all"
                 onChange={handleChange}
                 required
               />
@@ -90,7 +90,7 @@ export const AuthPopup = ({
             type="email"
             name="email"
             placeholder="Email Address"
-            className="w-full p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
+            className="w-full p-3 bg-gray-100 autofill:shadow-[inset_0_0_0px_1000px_#f3f4f6] autofill:border-darkblue autofill:text-black rounded-xl border-2 border-transparent autofill:bg-darkblue focus:border-darkblue outline-none transition-all"
             onChange={handleChange}
             required
           />
@@ -99,7 +99,7 @@ export const AuthPopup = ({
             type="password"
             name="password"
             placeholder="Password"
-            className="w-full p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
+            className="w-full p-3 bg-gray-100 rounded-xl border-2  autofill:shadow-[inset_0_0_0px_1000px_#f3f4f6] autofill:border-darkblue autofill:text-black border-transparent focus:border-darkblue outline-none transition-all"
             onChange={handleChange}
             required
           />
@@ -110,12 +110,12 @@ export const AuthPopup = ({
                 type="text"
                 name="photo_url"
                 placeholder="Profile Photo URL (optional)"
-                className="w-full p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
+                className="w-full p-3 bg-gray-100 rounded-xl  autofill:shadow-[inset_0_0_0px_1000px_#f3f4f6] autofill:border-darkblue autofill:text-black border-2 border-transparent focus:border-darkblue outline-none transition-all"
                 onChange={handleChange}
               />
               <select
                 name="role"
-                className="w-full p-3 bg-gray-100 rounded-xl border-2 border-transparent focus:border-green-500 outline-none transition-all"
+                className="w-full p-3 bg-gray-100 rounded-xl border-2  autofill:shadow-[inset_0_0_0px_1000px_#f3f4f6] autofill:border-darkblue autofill:text-black border-transparent focus:border-darkblue outline-none transition-all"
                 onChange={handleChange}
               >
                 <option value="user">User</option>
@@ -126,7 +126,7 @@ export const AuthPopup = ({
 
           <button
             type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl shadow-lg transition-transform active:scale-95 mt-4"
+            className="w-full bg-darkblue hover:bg-medblue text-white font-bold py-3 rounded-xl shadow-lg transition-transform active:scale-95 mt-4"
           >
             {isLoginView ? "LOG IN" : "SIGN UP"}
           </button>
@@ -136,7 +136,7 @@ export const AuthPopup = ({
           {isLoginView ? "Don't have an account?" : "Already have an account?"}
           <button
             onClick={() => setIsLoginView(!isLoginView)}
-            className="ml-2 text-green-600 font-bold hover:underline"
+            className="ml-2 text-darkblue font-bold hover:underline"
           >
             {isLoginView ? "Sign up" : "Log in"}
           </button>

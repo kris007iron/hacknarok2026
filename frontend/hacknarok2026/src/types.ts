@@ -45,3 +45,29 @@ export type Comment ={
   name: string; 
   description: string;
 }
+
+export type Language = {
+  id?: number;
+  project_id: number;
+  name: string;
+  bytes: number
+};
+
+export type Commit = {
+  id?: number;
+  project_id: number;
+  sha: string;
+  message: string;
+  author: string;
+  date: Date;
+  url: string
+};
+
+export type Contributor = {
+  id?: number;
+  project_id: number;
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  contributions: number;
+};

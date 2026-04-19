@@ -33,17 +33,17 @@ func (s *GitHubService) SyncFullProject(p *Project) error {
 		return fmt.Errorf("błąd zapisu projektu: %v", err)
 	}
 
-	//if err := s.fetchAndSaveCommits(p.ID, p.RepoUrl); err != nil {
-	//	fmt.Printf("Błąd commitów dla %s: %v\n", p.Name, err)
-	//}
-	//
-	//if err := s.fetchAndSaveLanguages(p.ID, p.RepoUrl); err != nil {
-	//	fmt.Printf("Błąd języków dla %s: %v\n", p.Name, err)
-	//}
-	//
-	//if err := s.fetchAndSaveContributors(p.ID, p.RepoUrl); err != nil {
-	//	fmt.Printf("Błąd kontrybutorów dla %s: %v\n", p.Name, err)
-	//}
+	if err := s.fetchAndSaveCommits(p.ID, p.RepoUrl); err != nil {
+		fmt.Printf("Błąd commitów dla %s: %v\n", p.Name, err)
+	}
+
+	if err := s.fetchAndSaveLanguages(p.ID, p.RepoUrl); err != nil {
+		fmt.Printf("Błąd języków dla %s: %v\n", p.Name, err)
+	}
+
+	if err := s.fetchAndSaveContributors(p.ID, p.RepoUrl); err != nil {
+		fmt.Printf("Błąd kontrybutorów dla %s: %v\n", p.Name, err)
+	}
 
 	return nil
 }
