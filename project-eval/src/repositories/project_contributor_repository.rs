@@ -1,4 +1,4 @@
-use crate::models::{ProjectContributor, ProjectLanguage};
+use crate::models::ProjectContributor;
 use sqlx::mysql::MySqlPool;
 
 #[derive(Clone)]

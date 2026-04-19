@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 
-use crate::models::project_contributor;
-
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
 pub struct ProjectContributorResponse {
     pub id: i32,
