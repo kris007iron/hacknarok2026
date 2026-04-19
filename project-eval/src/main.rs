@@ -21,7 +21,10 @@ use handlers::project::{get_all_projects, get_project_language_by_id};
 use handlers::rating::get_all_ratings;
 use state::AppState;
 
-use crate::handlers::{auth::register, project::add_project};
+use crate::handlers::{
+    auth::register,
+    project::{add_project, get_project_contributors_by_id},
+};
 
 #[tokio::main]
 async fn main() {
@@ -50,6 +53,10 @@ async fn main() {
         .route(
             "/api/projects/{project_id}/languages",
             get(get_project_language_by_id),
+        )
+        .route(
+            "/api/projects/{project_id}/contributors",
+            get(get_project_contributors_by_id),
         )
         .route("/api/ratings", get(get_all_ratings))
         .route("/api/comments", get(get_all_comments))
