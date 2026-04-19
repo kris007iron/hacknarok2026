@@ -15,10 +15,18 @@ export const ProjectPage = () => {
   const [newComment, setNewComment] = useState("");
   const [name, setName] = useState("");
 
-  const rating = projectRatings?.find(
-    (pR) => pR.project_id == currentProject?.id && pR.category == "main",
+  const allCurrentProjectRatings = projectRatings?.filter(
+    (pR) => pR.project_id == currentProject?.id,
   );
 
+  const mainRating = allCurrentProjectRatings?.find(
+    (pR) => pR.category === "main",
+  );
+
+  const categoryRatings = allCurrentProjectRatings?.filter(
+    (pR) => pR.category !== "main",
+  );
+  console.log(categoryRatings);
   return (
     <div className="w-full">
       {currentProject && (
@@ -40,10 +48,10 @@ export const ProjectPage = () => {
                 />
 
                 <div className="flex flex-col gap-4 w-full">
-                  {rating && (
+                  {mainRating && (
                     <Rating
                       precision={0.5}
-                      value={rating.rating / 2}
+                      value={mainRating.rating / 2}
                       readOnly
                       size="large"
                     />
@@ -110,7 +118,34 @@ export const ProjectPage = () => {
 
                   <div>
                     <span className="font-bold">AI Slop: </span>
-                    {rating?.is_slop ? "Yes 🤖" : "No ✅"}
+                    {mainRating?.is_slop ? "Yes 🤖" : "No ✅"}
+                  </div>
+                </div>
+
+                <div className="relative top-8 right-8 bg-white/60 backdrop-blur-md p-5 rounded-2xl border border-gray-300 shadow-sm pl-8 pr-20 pt-8">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-gray-600 mb-3 border-b border-gray-400 pb-1">
+                    Category Scores
+                  </h3>
+                  <div className="flex flex-col gap-3">
+                    {categoryRatings && categoryRatings.length > 0 ? (
+                      categoryRatings.map((cat) => (
+                        <div key={cat.id} className="flex flex-col">
+                          <span className="text-xs font-bold text-gray-800">
+                            {cat.category}
+                          </span>
+                          <Rating
+                            value={cat.rating / 2}
+                            precision={0.5}
+                            readOnly
+                            size="small"
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <span className="text-xs italic text-gray-500">
+                        No category ratings yet
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -120,10 +155,10 @@ export const ProjectPage = () => {
                 <p>{currentProject.description}</p>
               </div>
 
-              {rating?.description && (
+              {mainRating?.description && (
                 <div className="mt-6">
                   <h2 className="font-bold text-xl mb-2">Summary</h2>
-                  <p>{rating.description}</p>
+                  <p>{mainRating.description}</p>
                 </div>
               )}
             </div>
@@ -133,7 +168,9 @@ export const ProjectPage = () => {
               Comments section
             </h1>
           </div>
-          <div className={`bg-[#f3f4f6] p-10 rounded-3xl shadow-sm max-w-4xl mx-auto text-black font-sans ${loading ? "opacity-50" : ""}`}>
+          <div
+            className={`bg-[#f3f4f6] p-10 rounded-3xl shadow-sm max-w-4xl mx-auto text-black font-sans ${loading ? "opacity-50" : ""}`}
+          >
             <section className="mb-12">
               <h2 className="text-2xl font-bold mb-6">Write comment</h2>
               <div className="flex items-start gap-6">
@@ -171,9 +208,9 @@ export const ProjectPage = () => {
                           .then((res) => res.data)
                           .then((com) => setComments(com))
                           .finally(() => {
-                            setLoading(false)
-                            setName("")
-                            setNewComment("")
+                            setLoading(false);
+                            setName("");
+                            setNewComment("");
                           });
                       }, 500);
                     }}
@@ -186,7 +223,7 @@ export const ProjectPage = () => {
               </div>
             </section>
 
-            <section >
+            <section>
               <div className="flex items-center gap-4 mb-8">
                 <h2 className="text-2xl font-bold whitespace-nowrap">
                   All comments
