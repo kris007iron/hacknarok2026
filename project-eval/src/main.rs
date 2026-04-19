@@ -23,6 +23,7 @@ use state::AppState;
 use crate::handlers::{
     auth::register,
     project::{add_project, get_project_commits_by_id, get_project_contributors_by_id},
+    rating::add_rating,
 };
 
 #[tokio::main]
@@ -62,6 +63,7 @@ async fn main() {
             get(get_project_commits_by_id),
         )
         .route("/api/ratings", get(get_all_ratings))
+        .route("/api/ratings", post(add_rating))
         .route("/api/comments", get(get_all_comments))
         .route("/api/comments", post(add_comment))
         .layer(cors)
